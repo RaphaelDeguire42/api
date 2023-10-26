@@ -7,6 +7,7 @@ import os
 from django.shortcuts import render
 from rest_framework.response import Response
 from django.http import JsonResponse, FileResponse
+#TODO Francois a regarder pourquoi l'import marche pas ici
 from customModels.models import ProjectConfig, Project
 
 
@@ -32,47 +33,71 @@ def ajout_dossier(request):
 
     return JsonResponse(response_data)
 
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def upload(request):
-    User = get_user_model()
-    file_name = request.data.get('file_name')
-    user_id = request.user.id
-    json_data = request.data.get('json')
+    User         = get_user_model()
+    file_name    = request.data.get('fileName')
+    user_id      = request.user.id
+    json_data    = request.data.get('json')
+    project_name = request.data.get('projectName')
+    frame_number = "frame" + json.dumps(request.data.get('frameNumber'))
 
     api_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     memory_folder = os.path.join(api_root, 'memory')
-    
-    if file_name is not None and user_id is not None and json_data is not None:
+
+    # If all required parameters are present
+    if file_name is not None and user_id is not None and json_data is not None and frame_number is not None:
         user_id = int(user_id)
         user = User.objects.filter(id=user_id).first()
+        user_email = user.email
+        parts = user_email.split('@')
+        user_name = parts[0]
+        unique_user_name = user_name + "_" + str(user_id)
 
+        # si le user existe on crée un folder spécifique
         if user is not None:
             file_name, file_extension = os.path.splitext(file_name)
+            user_folder = os.path.join(memory_folder, unique_user_name)
+            project_folder = os.path.join(user_folder, project_name)
 
-            user_folder = os.path.join(memory_folder, str(user_id))
-            json_file = os.path.join(user_folder, f'{file_name}.json')
+            # on cré le folder si il existe pas
+            if not os.path.exists(project_folder):
+                os.makedirs(project_folder)
 
-            if not os.path.exists(user_folder):
-                os.makedirs(user_folder)
+            # on construit le path avec le file number
+            frame_filename = os.path.join(project_folder, f'{frame_number}.json')
 
-            if os.path.exists(json_file):
-                with open(json_file, 'r') as file:
+            try:
+                # Parse le json qu'on recoit
+                parsed_json_data = json.loads(json_data)
+            except json.JSONDecodeError as e:
+                return Response(f'Invalid JSON data: {str(e)}', status=400)
+
+           
+            # ca existe tu?
+            if os.path.exists(frame_filename):
+                # on lis le json avec le load
+                with open(frame_filename, 'r') as file:
                     existing_data = json.load(file)
 
-                if existing_data != json_data:
-                    with open(json_file, 'w') as file:
-                        json.dump(json_data, file)
-                    return Response('JSON data updated.')
-
+                # les json est tu différent?
+                if parsed_json_data != existing_data:
+                    # si oui on overwrite
+                    with open(frame_filename, 'w') as file:
+                        json.dump(parsed_json_data, file, indent=2)
+                    return Response('JSON update')  # on update
+                else:
+                    return Response('JSON non-change')  # on change rien
             else:
-                with open(json_file, 'w') as file:
-                    json.dump(json_data, file)
-
-            return Response('JSON data written to file.')
+                # si le fichier existe pas on crée le fichier
+                with open(frame_filename, 'w') as file:
+                    json.dump(parsed_json_data, file, indent=2)
+                return Response('Fichier JSON creer')  # on le crée
 
     return Response("There's a missing parameter in the request")
+
+
 
 
 @api_view(['POST'])
