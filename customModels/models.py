@@ -36,6 +36,14 @@ class Project(models.Model):
     def __str__(self):
         return self.name
     
+class ProjectConfig(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
+    duree = models.FloatField()
+    sequence = models.FloatField()
+
+    def __str__(self):
+        return self.name
+    
 class Classes(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=255)

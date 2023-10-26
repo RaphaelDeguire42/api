@@ -107,8 +107,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, User):
         token = super().get_token(User)
-#        token['jeton'] = User.jeton
-#        token['jetonOr'] = User.jetonOr
         token['email'] = User.email
         return token
 
