@@ -42,7 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'customModels',
-    'bootstrap',
+    'users',
+    'classes',
+    'states',
+    'projets',
+    'jsons',
+
 
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
