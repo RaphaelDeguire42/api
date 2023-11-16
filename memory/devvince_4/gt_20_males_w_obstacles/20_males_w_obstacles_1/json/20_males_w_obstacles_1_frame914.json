@@ -1,0 +1,317 @@
+{
+  "frame914": {
+    "detector_version": null,
+    "image_size": [
+      1536,
+      1536
+    ],
+    "data": {
+      "lit": {
+        "1": {
+          "bbox": "[175, 1188, 312, 1279]",
+          "conf": 0.8699278,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 29,
+          "source": "AI",
+          "state": "alive"
+        },
+        "15": {
+          "bbox": "[1226, 258, 1359, 356]",
+          "conf": 0.84367234,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 34,
+          "source": "AI",
+          "state": "alive"
+        },
+        "unconfirmed_tracks": {}
+      },
+      "eau": {
+        "0": {
+          "bbox": "[1011, 1397, 1130, 1533]",
+          "conf": 0.8682589,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 13,
+          "source": "AI",
+          "state": "alive"
+        },
+        "1": {
+          "bbox": "[530, 11, 633, 157]",
+          "conf": 0.85741687,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 21,
+          "source": "AI",
+          "state": "alive"
+        },
+        "2": {
+          "bbox": "[906, 1396, 998, 1533]",
+          "conf": 0.85126054,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 22,
+          "source": "AI",
+          "state": "alive"
+        },
+        "3": {
+          "bbox": "[390, 8, 493, 156]",
+          "conf": 0.84458905,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 26,
+          "source": "AI",
+          "state": "alive"
+        },
+        "unconfirmed_tracks": {}
+      },
+      "nid": {
+        "unconfirmed_tracks": {}
+      },
+      "mouse": {
+        "0": {
+          "bbox": "[935, 986, 1035, 1070]",
+          "conf": 0.8893213,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 55,
+          "source": "AI",
+          "state": "alive"
+        },
+        "1": {
+          "bbox": "[545, 1084, 626, 1151]",
+          "conf": 0.84847605,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 60,
+          "source": "AI",
+          "state": "alive"
+        },
+        "2": {
+          "bbox": "[916, 105, 971, 202]",
+          "conf": 0.8378638,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 47,
+          "source": "AI",
+          "state": "alive"
+        },
+        "3": {
+          "bbox": "[847, 713, 911, 812]",
+          "conf": 0.89336103,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 10,
+          "source": "AI",
+          "state": "alive"
+        },
+        "4": {
+          "bbox": "[1277, 106, 1333, 201]",
+          "conf": 0.8708196,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 63,
+          "source": "AI",
+          "state": "alive"
+        },
+        "5": {
+          "bbox": "[678, 772, 767, 838]",
+          "conf": 0.8591656,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 59,
+          "source": "AI",
+          "state": "alive"
+        },
+        "6": {
+          "bbox": "[607, 1431, 713, 1501]",
+          "conf": 0.82435644,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 48,
+          "source": "AI",
+          "state": "alive"
+        },
+        "7": {
+          "bbox": "[445, 797, 524, 884]",
+          "conf": 0.86519134,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 16,
+          "source": "AI",
+          "state": "alive"
+        },
+        "8": {
+          "bbox": "[176, 1362, 279, 1422]",
+          "conf": 0.78502643,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 72,
+          "source": "AI",
+          "state": "alive"
+        },
+        "9": {
+          "bbox": "[123, 473, 178, 577]",
+          "conf": 0.87023664,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 18,
+          "source": "AI",
+          "state": "alive"
+        },
+        "10": {
+          "bbox": "[994, 537, 1099, 634]",
+          "conf": 0.86406595,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 19,
+          "source": "AI",
+          "state": "alive"
+        },
+        "11": {
+          "bbox": "[1353, 115, 1459, 180]",
+          "conf": 0.84098935,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 23,
+          "source": "AI",
+          "state": "alive"
+        },
+        "12": {
+          "bbox": "[133, 1376, 207, 1454]",
+          "conf": 0.790655,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 56,
+          "source": "AI",
+          "state": "alive"
+        },
+        "13": {
+          "bbox": "[1065, 169, 1125, 261]",
+          "conf": 0.84810376,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 41,
+          "source": "AI",
+          "state": "alive"
+        },
+        "14": {
+          "bbox": "[606, 1325, 677, 1373]",
+          "conf": 0.7904887,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 53,
+          "source": "AI",
+          "state": "alive"
+        },
+        "15": {
+          "bbox": "[755, 752, 828, 866]",
+          "conf": 0.8806418,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 62,
+          "source": "AI",
+          "state": "alive"
+        },
+        "16": {
+          "bbox": "[250, 431, 348, 490]",
+          "conf": 0.8729309,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 17,
+          "source": "AI",
+          "state": "alive"
+        },
+        "17": {
+          "bbox": "[949, 628, 1004, 742]",
+          "conf": 0.88562995,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 46,
+          "source": "AI",
+          "state": "alive"
+        },
+        "18": {
+          "bbox": "[127, 392, 204, 475]",
+          "conf": 0.85973877,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 20,
+          "source": "AI",
+          "state": "alive"
+        },
+        "19": {
+          "bbox": "[719, 624, 795, 736]",
+          "conf": 0.8822313,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 57,
+          "source": "AI",
+          "state": "alive"
+        },
+        "unconfirmed_tracks": {}
+      },
+      "roulette": {
+        "0": {
+          "bbox": "[1042, 1009, 1232, 1213]",
+          "conf": 0.91292495,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 1,
+          "source": "AI",
+          "state": "alive"
+        },
+        "1": {
+          "bbox": "[395, 913, 603, 1115]",
+          "conf": 0.90830046,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 2,
+          "source": "AI",
+          "state": "alive"
+        },
+        "2": {
+          "bbox": "[920, 430, 1133, 625]",
+          "conf": 0.9033696,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 3,
+          "source": "AI",
+          "state": "alive"
+        },
+        "3": {
+          "bbox": "[330, 379, 521, 575]",
+          "conf": 0.912086,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 8,
+          "source": "AI",
+          "state": "alive"
+        },
+        "unconfirmed_tracks": {}
+      },
+      "mangeoire": {
+        "0": {
+          "bbox": "[428, 1360, 693, 1527]",
+          "conf": 0.8665201,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 6,
+          "source": "AI",
+          "state": "alive"
+        },
+        "1": {
+          "bbox": "[843, 4, 1100, 186]",
+          "conf": 0.8902946,
+          "keypoints": [],
+          "keypoints conf": [],
+          "raw_track_id": 14,
+          "source": "AI",
+          "state": "alive"
+        },
+        "unconfirmed_tracks": {}
+      }
+    }
+  }
+}
