@@ -1,7 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 import json
 import os
 import io
@@ -13,6 +12,12 @@ from rest_framework.response import Response
 from django.http import FileResponse, JsonResponse
 from customModels.models import Project
 from customModels.models import ProjectConfig, Project
+
+
+
+
+
+
 
 
 
@@ -45,6 +50,7 @@ def upload(request):
     user_id      = request.user.id
     file_name    = request.data.get('fileName')
     json_data    = request.data.get('json')
+    video_name   = request.data.get('videoName')
     project_name = request.data.get('projectName')
     frame_number = "frame" + json.dumps(request.data.get('frameNumber'))
 
@@ -65,14 +71,15 @@ def upload(request):
             file_name, file_extension = os.path.splitext(file_name)
             user_folder = os.path.join(memory_folder, unique_user_name)
             project_folder = os.path.join(user_folder, project_name)
-            json_folder = os.path.join(project_folder, 'json')
+            video_folder = os.path.join(project_folder, video_name)
+            json_folder = os.path.join(video_folder, 'json')
 
             # on cré le folder si il existe pas
             if not os.path.exists(json_folder):
                 os.makedirs(json_folder)
 
             # on construit le path avec le file number
-            frame_filename = os.path.join(json_folder, f'{frame_number}.json')
+            frame_filename = os.path.join(json_folder, f'{video_name}_{frame_number}.json')
 
             try:
                 # Parse le json qu'on recoit
@@ -100,12 +107,7 @@ def upload(request):
                 with open(frame_filename, 'w') as file:
                     json.dump(parsed_json_data, file, indent=2)
                 return Response('Fichier JSON creer')  # on le crée
-
     return Response("There's a missing parameter in the request")
-
-
-
-
 
 
 @api_view(['POST'])
@@ -177,10 +179,11 @@ def get_json(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def upload_image(request):
-    User = get_user_model()
-    user_id = request.user.id
-    encoded_image = request.data.get('image')
-    file_name = request.data.get('file_name')
+    User            = get_user_model()
+    user_id         = request.user.id
+    encoded_image   = request.data.get('image')
+    file_name       = request.data.get('file_name')
+    video_name      = request.data.get('video_name')
     project_name = request.data.get('project_name')
     frame_number = "frame" + json.dumps(request.data.get('frame_number'))
 
@@ -206,7 +209,8 @@ def upload_image(request):
             file_name, file_extension = os.path.splitext(file_name)
             user_folder = os.path.join(memory_folder, unique_user_name)
             project_folder = os.path.join(user_folder, project_name)
-            frames_folder = os.path.join(project_folder, 'frames')
+            video_folder = os.path.join(project_folder, video_name)
+            frames_folder = os.path.join(video_folder, 'frames')
 
             if not os.path.exists(frames_folder):
                 os.makedirs(frames_folder)
