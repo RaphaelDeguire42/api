@@ -30,7 +30,7 @@ class CustomUser(AbstractUser):
 
 
 class Project(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, unique=False)
     folderName = models.CharField(null=True, max_length=255)
 
     def __str__(self):

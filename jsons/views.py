@@ -15,12 +15,6 @@ from customModels.models import ProjectConfig, Project
 
 
 
-
-
-
-
-
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def ajout_dossier(request):
@@ -65,48 +59,50 @@ def upload(request):
         parts = user_email.split('@')
         user_name = parts[0]
         unique_user_name = user_name + "_" + str(user_id)
+        try:
+            # si le user existe on crée un folder spécifique
+            if user is not None:
+                file_name, file_extension = os.path.splitext(file_name)
+                user_folder = os.path.join(memory_folder, unique_user_name)
+                project_folder = os.path.join(user_folder, project_name)
+                video_folder = os.path.join(project_folder, video_name)
+                json_folder = os.path.join(video_folder, 'json')
 
-        # si le user existe on crée un folder spécifique
-        if user is not None:
-            file_name, file_extension = os.path.splitext(file_name)
-            user_folder = os.path.join(memory_folder, unique_user_name)
-            project_folder = os.path.join(user_folder, project_name)
-            video_folder = os.path.join(project_folder, video_name)
-            json_folder = os.path.join(video_folder, 'json')
+                # on cré le folder si il existe pas
+                if not os.path.exists(json_folder):
+                    os.makedirs(json_folder)
 
-            # on cré le folder si il existe pas
-            if not os.path.exists(json_folder):
-                os.makedirs(json_folder)
+                # on construit le path avec le file number
+                frame_filename = os.path.join(json_folder, f'{video_name}_{frame_number}.json')
 
-            # on construit le path avec le file number
-            frame_filename = os.path.join(json_folder, f'{video_name}_{frame_number}.json')
+                try:
+                    # Parse le json qu'on recoit
+                    parsed_json_data = json.loads(json_data)
+                except json.JSONDecodeError as e:
+                    return Response(f'Invalid JSON data: {str(e)}', status=400)
 
-            try:
-                # Parse le json qu'on recoit
-                parsed_json_data = json.loads(json_data)
-            except json.JSONDecodeError as e:
-                return Response(f'Invalid JSON data: {str(e)}', status=400)
 
-           
-            # ca existe tu?
-            if os.path.exists(frame_filename):
-                # on lis le json avec le load
-                with open(frame_filename, 'r') as file:
-                    existing_data = json.load(file)
+                # ca existe tu?
+                if os.path.exists(frame_filename):
+                    # on lis le json avec le load
+                    with open(frame_filename, 'r') as file:
+                        existing_data = json.load(file)
 
-                # les json est tu différent?
-                if parsed_json_data != existing_data:
-                    # si oui on overwrite
+                    # les json est tu différent?
+                    if parsed_json_data != existing_data:
+                        # si oui on overwrite
+                        with open(frame_filename, 'w') as file:
+                            json.dump(parsed_json_data, file, indent=2)
+                        return Response('JSON update')  # on update
+                    else:
+                        return Response('JSON non-change')  # on change rien
+                else:
+                    # si le fichier existe pas on crée le fichier
                     with open(frame_filename, 'w') as file:
                         json.dump(parsed_json_data, file, indent=2)
-                    return Response('JSON update')  # on update
-                else:
-                    return Response('JSON non-change')  # on change rien
-            else:
-                # si le fichier existe pas on crée le fichier
-                with open(frame_filename, 'w') as file:
-                    json.dump(parsed_json_data, file, indent=2)
-                return Response('Fichier JSON creer')  # on le crée
+                    return Response('Fichier JSON creer')  # on le crée
+        except Exception as e:
+            print(e)
     return Response("There's a missing parameter in the request")
 
 

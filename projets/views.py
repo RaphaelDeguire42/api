@@ -37,7 +37,14 @@ def project_create(request):
         project = serializer.save()
 
         user = request.user
+        project_name = serializer.validated_data.get('name')
 
+        existing_project = user.projects.filter(name=project_name).first()
+
+        if existing_project:
+            return Response({'error': 'A project with the same name already exists for this user.'},
+                            status=status.HTTP_400_BAD_REQUEST
+                            )
         user.projects.add(project)
 
         limit_projects(user)

@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,6 +36,7 @@ ALLOWED_HOSTS = ["207.253.169.2", #FOR OUSTIDE CONNECTION
                   "localHost"]    #SHOULD NOT BE USED SINCE FOR CONNECTION ON SAME OS
 
 
+SECURE_SSL_REDIRECT = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'customModels',
     'users',
     'classes',
