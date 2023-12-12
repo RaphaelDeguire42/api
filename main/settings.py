@@ -36,9 +36,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["207.253.169.2", #FOR OUSTIDE CONNECTION
-                 "192.168.1.9",   #FOR CONNECTION TOP LEVEL ROUTER
-                 "10.63.56.150",  #FOR CONNECTION ON THE SAME NETWORK
+ALLOWED_HOSTS = ["brainapi.ca"    #FOR CONNECTION TO API DOMAIN
                  "127.0.0.1",     #FOR CONNECTION ON THE SAME PC
                   "localHost"]    #SHOULD NOT BE USED SINCE FOR CONNECTION ON SAME OS
 
