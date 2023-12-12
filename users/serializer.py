@@ -6,6 +6,12 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import BaseValidator
 from customModels.models import CustomUser, Project, Classes, States
+from django.utils import timezone
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
+from django.core.exceptions import ObjectDoesNotExist
+
+
 
 User = get_user_model()
 
@@ -102,13 +108,50 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password)  # Hash the password
         user.save()
         return user
-
+    
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
-    def get_token(cls, User):
-        token = super().get_token(User)
-        token['email'] = User.email
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['email'] = user.email
         return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        user = self.user
+
+        if user and not user.is_anonymous:
+            self.update_last_login(user)
+
+        return data
+
+    def update_last_login(self, user):
+
+        user.last_login = timezone.now()
+        user.save()
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        if response.status_code == 200:
+            self.update_last_login(request.user)
+        return response
+
+    def update_last_login(self, user):
+
+        if user and not user.is_anonymous:
+            try:
+             
+                custom_user = get_user_model().objects.get(email=user.email)
+                custom_user.last_login = timezone.now()
+                custom_user.save()
+            except ObjectDoesNotExist:
+                pass
+
+@receiver(user_logged_in)
+def user_logged_in_callback(sender, request, user, **kwargs):
+    if user and not user.is_anonymous:
+        user.last_login = timezone.now()
+        user.save()

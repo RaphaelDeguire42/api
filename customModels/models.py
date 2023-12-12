@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
-
-
+from django.utils import timezone
 from .managers import CustomUserManager
 
 
@@ -27,6 +26,9 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+
 
 
 class Project(models.Model):
@@ -58,5 +60,18 @@ class States(models.Model):
 
     def __str__(self):
         return self.name
+class FeedbackLog(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    feedback = models.TextField(max_length=2500)
+
+    def __str__(self):
+        return f"FeedbackLog {self.id}"
 
 
+class RequestLogger(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    hour = models.DateTimeField()
+    request_count = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)

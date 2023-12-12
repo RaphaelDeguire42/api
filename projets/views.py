@@ -32,7 +32,13 @@ def user_related_projects(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def project_create(request):
+    user = request.user
+    project_name = request.data.get("folderName")
+    user_email = user.email
+    parts = user_email.split('@')
+    user_name = parts[0]
     serializer = ProjectSerializer(data=request.data)
+    print(f"Project Created | Username: {user_name} | Project: {project_name}")
     if serializer.is_valid():
         project = serializer.save()
 
@@ -56,14 +62,12 @@ def project_create(request):
 def limit_projects(user):
 
     max_projects_to_keep = 10
-
     user_email = user.email
     parts = user_email.split('@')
     user_name = parts[0]
     unique_user_name = user_name + "_" + str(user.id)
     testing = os.path.dirname(os.path.abspath(__file__))
     repo_dir = os.path.dirname(os.path.dirname(testing))
-    print(os.path.join(repo_dir, 'memory', f'{unique_user_name}'))
     if os.path.join(repo_dir, 'memory', f'{unique_user_name}'):
         user_projects_dir = os.path.join(repo_dir, 'memory', f'{unique_user_name}')
         if not os.path.exists(user_projects_dir):
@@ -71,7 +75,6 @@ def limit_projects(user):
         all_projects = os.listdir(user_projects_dir)
         all_projects.sort(key=lambda x: os.path.getctime(os.path.join(user_projects_dir, x)))
         projects_to_delete = max(0, len(all_projects) - max_projects_to_keep)
-
         for project_name in all_projects[:projects_to_delete]:
             project_path = os.path.join(user_projects_dir, project_name)
             shutil.rmtree(project_path)

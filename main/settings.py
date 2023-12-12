@@ -26,6 +26,13 @@ from datetime import timedelta
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-i8xb%j_zj#cf7v4m15*m*9lg29=k5%yy-b+f_u9@s2k!vq(66b'
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -51,7 +58,7 @@ INSTALLED_APPS = [
     'classes',
     'states',
     'projets',
-    'jsons',
+    'uploads',
 
 
     'rest_framework',
@@ -133,6 +140,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'main.middleware.RequestLoggerMiddleware'
 
 ]
 

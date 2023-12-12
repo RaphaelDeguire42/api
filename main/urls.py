@@ -23,5 +23,5 @@ urlpatterns = [
     path('api/', include('classes.urls')),
     path('api/', include('projets.urls')),
     path('api/', include('states.urls')),
-    path('', include('jsons.urls')),
+    path('', include('uploads.urls')),
 ]
